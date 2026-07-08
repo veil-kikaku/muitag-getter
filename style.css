@@ -1,3 +1,4 @@
+```css
 body{
     margin:0;
     background:#f5f5f5;
@@ -10,53 +11,8 @@ body{
     padding:20px;
 }
 
-.form{
-    display:flex;
-    gap:10px;
-}
-
-input{
-    flex:1;
-    padding:12px;
-    font-size:16px;
-}
-
-button{
-    padding:12px 24px;
-    cursor:pointer;
-}
-
-#message{
-    margin:15px 0;
-    font-weight:bold;
-}
-
-.tweet{
-    margin:25px 0;
-}
-
-@media(max-width:700px){
-
-.form{
-    flex-direction:column;
-}
-
-button{
-    width:100%;
-}
-
-}
-
-body{
-    margin:0;
-    background:#f5f5f5;
-    font-family:sans-serif;
-}
-
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:20px;
+h1{
+    margin-bottom:10px;
 }
 
 .form{
@@ -68,11 +24,22 @@ input{
     flex:1;
     padding:12px;
     font-size:16px;
+    border:1px solid #ccc;
+    border-radius:6px;
 }
 
 button{
     padding:12px 24px;
     cursor:pointer;
+    border:none;
+    border-radius:6px;
+    background:#333;
+    color:white;
+}
+
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
 }
 
 #message{
@@ -80,19 +47,15 @@ button{
     font-weight:bold;
 }
 
+
+/* 投稿カード */
+
 .tweet{
     margin:25px 0;
 }
 
-@media(max-width:700px){
 
-.form{
-    flex-direction:column;
-}
-
-button{
-    width:100%;
-}
+/* 管理画面カード */
 
 .card{
 
@@ -106,10 +69,43 @@ button{
 
     box-shadow:0 0 5px rgba(0,0,0,.15);
 
+    word-break:break-all;
+
 }
 
 .card button{
 
-    background:red;
+    background:#d9534f;
 
 }
+
+
+/* 区切り */
+
+hr{
+    border:none;
+    border-top:1px solid #ddd;
+    margin:25px 0;
+}
+
+
+/* スマホ対応 */
+
+@media(max-width:700px){
+
+    .container{
+        padding:15px;
+    }
+
+
+    .form{
+        flex-direction:column;
+    }
+
+
+    button{
+        width:100%;
+    }
+
+}
+```
