@@ -1,6 +1,6 @@
 const API_URL = "https://muimani-post-api.neetland.workers.dev";
 
-const ADMIN_KEY = "ここに管理者キー";
+const adminKeyInput = document.getElementById("adminKey");
 
 const posts = document.getElementById("posts");
 
@@ -59,10 +59,21 @@ ${post.created_at}
 async function deletePost(id){
 
     if(!confirm("削除しますか？")){
+        return;
+    }
+
+
+    const key = adminKeyInput.value;
+
+
+    if(!key){
+
+        alert("管理キーを入力してください");
 
         return;
 
     }
+
 
     const res = await fetch(
 
@@ -74,7 +85,7 @@ async function deletePost(id){
 
             headers:{
 
-                "X-Admin-Key":ADMIN_KEY
+                "X-Admin-Key":key
 
             }
 
@@ -82,7 +93,9 @@ async function deletePost(id){
 
     );
 
+
     const result=await res.json();
+
 
     if(result.success){
 
