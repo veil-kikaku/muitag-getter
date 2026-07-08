@@ -50,7 +50,8 @@ button:disabled{
 /* 投稿カード */
 
 .tweet{
-    margin:25px 0;
+    display:flex;
+    justify-content:center;
 }
 
 
