@@ -22,13 +22,14 @@ async function loadPosts(){
 
     posts.innerHTML="";
 
-    data.forEach(post=>{
+    for(const post of data){
 
         const div=document.createElement("div");
 
         div.className="card";
 
-div.innerHTML=`
+
+        div.innerHTML=`
 
 <h3>ID ${post.id}</h3>
 
@@ -43,23 +44,28 @@ ${post.created_at}
 </p>
 
 <button onclick="deletePost(${post.id})">
+
 削除
+
 </button>
 
 <hr>
 
 `;
 
+
         posts.appendChild(div);
-        
+
+
         const id = post.url.match(/status\/(\d+)/)[1];
+
 
         await twttr.widgets.createTweet(
             id,
             document.getElementById(`tweet-${post.id}`)
         );
 
-    });
+    }
 
 }
 
