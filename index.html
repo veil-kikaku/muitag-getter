@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>むいまにあ投稿まとめ</title>
+<title>むいまにあ タグ投稿まとめ</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -17,43 +18,37 @@
 
 <div class="container">
 
-<h1>むいまにあ投稿まとめ</h1>
+<h1>むいまにあ タグ投稿まとめ</h1>
 
 <p>
-タグ検索に表示されない方は、
-投稿URLを入力してください。
+タグ検索に表示されない方は投稿URLを登録してください。
 </p>
 
-<form
-    action="https://script.google.com/macros/s/AKfycbxlqdV0P2AyuKDpvWJvurXqbSdCPS4-nT8N3RK1ul6rEeSzhE3BkAL_M2hD2bRsqAKc/exec"
-    method="POST"
-    target="hiddenFrame">
+<div class="form">
 
-    <input
-        type="url"
-        name="url"
-        id="url"
-        placeholder="https://x.com/xxxxx/status/123456789"
-        required>
+<input
+id="url"
+type="url"
+placeholder="https://x.com/.../status/...">
 
-    <button>
-        投稿する
-    </button>
+<button id="send">
+投稿する
+</button>
 
-</form>
+</div>
 
-<iframe
-    name="hiddenFrame"
-    style="display:none;">
-</iframe>
-
-<p id="message"></p>
+<div id="message"></div>
 
 <hr>
 
-<h2>投稿一覧</h2>
+<h2>
+投稿一覧
+(<span id="count">0</span>)
+</h2>
 
-<div id="posts"></div>
+<div id="posts">
+読み込み中...
+</div>
 
 </div>
 

@@ -1,38 +1,85 @@
-const SHEET_NAME = "posts";
+const API_URL="https://muimani-post-api.neetland.workers.dev";
 
-const form = document.querySelector("form");
-const message = document.getElementById("message");
+const input=document.getElementById("url");
+const button=document.getElementById("send");
+const message=document.getElementById("message");
+const posts=document.getElementById("posts");
 
-form.addEventListener("submit", () => {
+button.onclick=async()=>{
 
-    message.textContent = "投稿しました！";
+    const url=input.value.trim();
 
-    setTimeout(loadPosts, 1000);
+    if(!url){
 
-});
+        message.textContent="URLを入力してください";
+        return;
 
-const GAS_URL =
-"https://script.google.com/macros/s/AKfycbxlqdV0P2AyuKDpvWJvurXqbSdCPS4-nT8N3RK1ul6rEeSzhE3BkAL_M2hD2bRsqAKc/exec";
+    }
+
+    if(!url.match(/^https:\/\/(x|twitter)\.com\/.+\/status\/\d+/)){
+
+        message.textContent="Xの投稿URLを入力してください";
+        return;
+
+    }
+
+    button.disabled=true;
+
+    const res=await fetch(API_URL,{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+            url:url
+        })
+
+    });
+
+    const result=await res.json();
+
+    if(result.success){
+
+        message.textContent="投稿しました！";
+
+        input.value="";
+
+        loadPosts();
+
+    }else{
+
+        message.textContent="この投稿は既に登録されています";
+
+    }
+
+    button.disabled=false;
+
+};
 
 async function loadPosts(){
 
-    const res = await fetch(GAS_URL);
+    posts.innerHTML="読み込み中...";
 
-    const posts = await res.json();
+    const res=await fetch(API_URL);
 
-    const area = document.getElementById("posts");
+    const data=await res.json();
 
-    area.innerHTML="";
+    document.getElementById("count").textContent=data.length;
 
-    posts.reverse();
+    posts.innerHTML="";
 
-    for(const post of posts){
+    for(const post of data){
 
-        const id = post.url.match(/status\/(\d+)/)[1];
+        const id=post.url.match(/status\/(\d+)/)[1];
 
         const div=document.createElement("div");
 
-        area.appendChild(div);
+        div.className="tweet";
+
+        posts.appendChild(div);
 
         await twttr.widgets.createTweet(id,div);
 
