@@ -11,27 +11,33 @@ form.addEventListener("submit", () => {
 
 });
 
-function doGet() {
+const GAS_URL =
+"https://script.google.com/macros/s/AKfycbxlqdV0P2AyuKDpvWJvurXqbSdCPS4-nT8N3RK1ul6rEeSzhE3BkAL_M2hD2bRsqAKc/exec";
 
-  const sheet = SpreadsheetApp
-    .getActiveSpreadsheet()
-    .getSheetByName(SHEET_NAME);
+async function loadPosts(){
 
-  const values = sheet.getDataRange().getValues();
+    const res = await fetch(GAS_URL);
 
-  const posts = [];
+    const posts = await res.json();
 
-  for (let i = 1; i < values.length; i++) {
+    const area = document.getElementById("posts");
 
-    posts.push({
-      url: values[i][0],
-      date: values[i][1]
-    });
+    area.innerHTML="";
 
-  }
+    posts.reverse();
 
-  return ContentService
-    .createTextOutput(JSON.stringify(posts))
-    .setMimeType(ContentService.MimeType.JSON);
+    for(const post of posts){
+
+        const id = post.url.match(/status\/(\d+)/)[1];
+
+        const div=document.createElement("div");
+
+        area.appendChild(div);
+
+        await twttr.widgets.createTweet(id,div);
+
+    }
 
 }
+
+loadPosts();
