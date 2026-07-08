@@ -1,62 +1,37 @@
-const GAS_URL =
-"https://script.google.com/macros/s/AKfycbxlqdV0P2AyuKDpvWJvurXqbSdCPS4-nT8N3RK1ul6rEeSzhE3BkAL_M2hD2bRsqAKc/exec";
+const SHEET_NAME = "posts";
 
-const input=document.getElementById("url");
-const button=document.getElementById("send");
-const message=document.getElementById("message");
+const form = document.querySelector("form");
+const message = document.getElementById("message");
 
-button.onclick=async()=>{
+form.addEventListener("submit", () => {
 
-    const url=input.value.trim();
+    message.textContent = "投稿しました！";
 
-    if(!url){
+    setTimeout(loadPosts, 1000);
 
-        message.textContent="URLを入力してください";
-        return;
+});
 
-    }
+function doGet() {
 
-    if(!url.includes("/status/")){
+  const sheet = SpreadsheetApp
+    .getActiveSpreadsheet()
+    .getSheetByName(SHEET_NAME);
 
-        message.textContent="Xの投稿URLを入力してください";
-        return;
+  const values = sheet.getDataRange().getValues();
 
-    }
+  const posts = [];
 
-    button.disabled=true;
+  for (let i = 1; i < values.length; i++) {
 
-    message.textContent="送信中...";
+    posts.push({
+      url: values[i][0],
+      date: values[i][1]
+    });
 
-    try{
+  }
 
-        await fetch(GAS_URL,{
+  return ContentService
+    .createTextOutput(JSON.stringify(posts))
+    .setMimeType(ContentService.MimeType.JSON);
 
-            method:"POST",
-
-            headers:{
-                "Content-Type":"application/json"
-            },
-
-            body:JSON.stringify({
-                url:url
-            })
-
-        });
-
-        message.textContent="投稿しました！";
-
-        input.value="";
-
-    }
-
-    catch(e){
-
-        console.error(e);
-
-        message.textContent="送信できませんでした";
-
-    }
-
-    button.disabled=false;
-
-};
+}

@@ -24,16 +24,30 @@
 投稿URLを入力してください。
 </p>
 
-<input
-id="url"
-type="url"
-placeholder="https://x.com/xxxxx/status/123456789">
+<form
+    action="https://script.google.com/macros/s/AKfycbxlqdV0P2AyuKDpvWJvurXqbSdCPS4-nT8N3RK1ul6rEeSzhE3BkAL_M2hD2bRsqAKc/exec"
+    method="POST"
+    target="hiddenFrame">
 
-<button id="send">
-追加する
-</button>
+    <input
+        type="url"
+        name="url"
+        id="url"
+        placeholder="https://x.com/xxxxx/status/123456789"
+        required>
 
-<div id="message"></div>
+    <button>
+        投稿する
+    </button>
+
+</form>
+
+<iframe
+    name="hiddenFrame"
+    style="display:none;">
+</iframe>
+
+<p id="message"></p>
 
 <hr>
 
