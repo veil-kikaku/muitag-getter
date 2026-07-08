@@ -1,4 +1,4 @@
-const API_URL = "https://あなたのWorker.workers.dev";
+const API_URL = "https://muimani-post-api.neetland.workers.dev";
 
 const ADMIN_KEY = "ここに管理者キー";
 
