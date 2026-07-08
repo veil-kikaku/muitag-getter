@@ -28,9 +28,11 @@ async function loadPosts(){
 
         div.className="card";
 
-        div.innerHTML=`
+div.innerHTML=`
 
 <h3>ID ${post.id}</h3>
+
+<div id="tweet-${post.id}"></div>
 
 <p>
 ${post.url}
@@ -41,9 +43,7 @@ ${post.created_at}
 </p>
 
 <button onclick="deletePost(${post.id})">
-
 削除
-
 </button>
 
 <hr>
@@ -51,6 +51,13 @@ ${post.created_at}
 `;
 
         posts.appendChild(div);
+        
+        const id = post.url.match(/status\/(\d+)/)[1];
+
+        await twttr.widgets.createTweet(
+            id,
+            document.getElementById(`tweet-${post.id}`)
+        );
 
     });
 
