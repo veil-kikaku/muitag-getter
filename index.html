@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>むいまにあ投稿まとめ</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script async src="https://platform.twitter.com/widgets.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>むいまにあ投稿まとめ</h1>
+
+<p>
+タグ検索に表示されない方は、
+投稿URLを入力してください。
+</p>
+
+<input
+id="url"
+type="url"
+placeholder="https://x.com/xxxxx/status/123456789">
+
+<button id="send">
+追加する
+</button>
+
+<div id="message"></div>
+
+<hr>
+
+<h2>投稿一覧</h2>
+
+<div id="posts"></div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
